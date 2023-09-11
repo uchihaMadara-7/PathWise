@@ -1,0 +1,21 @@
+/* Navbar CSS */
+.navbar {
+    border: black solid 1px;
+    padding: 10px 0;
+}
+
+.navbar-container {
+    margin: 0 auto;
+    margin-left: 50px;
+    display: flex;
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-item {
+    margin: 0;
+}

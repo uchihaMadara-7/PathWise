@@ -1,10 +1,11 @@
-import './App.css';
+import './Styles/App.css';
+import Navbar from './UI Components/Navbar';
 
-function App() {
+const App = () => {
   return (
     <div>
-      PathWise
-    </div>
+      <Navbar />
+    </div >
   );
 }
 
