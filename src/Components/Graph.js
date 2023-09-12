@@ -35,11 +35,11 @@ export const floatingNode = (rowId, colId) => {
         rowId,
         colId,
         /*
-          x and y are pixels to render the start and finish node
+          top and left are pixels to render the start and finish node from top and left resp.
           44px is the size of each grid box and 9px to center on the grid box
         */
-        x: rowId * 44 + 9,
-        y: colId * 44 + 9,
+        top: rowId * 44 + 9,
+        left: colId * 44 + 9,
     }
 }
 
