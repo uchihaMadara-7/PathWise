@@ -20,8 +20,8 @@ const App = () => {
       whenever the grid will be changed, the component will be re-rendered
     */
     const [grid, setGrid] = useState();
-    //const [source, setSource] = useState(Graph.floatingNode(Graph.START_NODE_X, Graph.START_NODE_Y));
-    //const [dest, setDest] = useState(Graph.floatingNode(Graph.FINISH_NODE_X, Graph.FINISH_NODE_Y));
+    const [source, setSource] = useState(Graph.floatingNode(Graph.START_NODE_X, Graph.START_NODE_Y));
+    const [destination, setDestination] = useState(Graph.floatingNode(Graph.FINISH_NODE_X, Graph.FINISH_NODE_Y));
 
     return (
         <div>

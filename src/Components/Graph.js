@@ -63,7 +63,7 @@ export const GraphNode = (rowId, colId) => {
         colId,
         parent_node: Node(-1, -1),
         distance: Infinity,
-        is_visted_node: false,
+        is_visited_node: false,
         is_path_node: false,
     }
 }
@@ -100,14 +100,13 @@ export const updateGrid = () => {
                 'bottom-row': row === graph_row - 1,
                 'left-col': col === 0,
                 'right-col': col === graph_col - 1,
-                'path-node': graph[row][col].is_path_node,
-                'source-node': graph[row][col].is_start,
-                'dest-node': graph[row][col].is_finish,
-                'actual-node-path': graph[row][col].is_short_path_node,
+                'path-node': graph[row][col].is_visited_node,
+                'actual-node-path': graph[row][col].is_path_node,
             });
 
             /* push the each cell in the row_div */
             row_div.push(<td
+                id={graph_col * row + col}
                 key={graph_col * row + col}
                 className={classes}>
             </td>

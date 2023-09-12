@@ -67,6 +67,14 @@
     width: 40px;
     height: 40px;
     position: absolute;
+    /*
+    this is row = 4, col = 7
+    find div id = 4 * max_col + 7
+    from the element.getBoundingClientRect() get left, and top
+    add 3 to top and 3 to left
+        top: 249px;
+        left: 272px;
+    */
     top: 733px;
     left: 844px;
     background-image: url('../../public/Icons/destination.png');
