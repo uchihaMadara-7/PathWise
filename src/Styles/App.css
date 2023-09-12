@@ -48,3 +48,29 @@
 .table-style {
     margin: 5px auto;
 }
+
+.source {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    /* row_index * 44 + 111 + 6 */
+    top: 249px;
+    /* col_index * 44 + 8 */
+    left: 228px;
+    background-image: url('../../public/Icons/source.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.destination {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 733px;
+    left: 844px;
+    background-image: url('../../public/Icons/destination.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
