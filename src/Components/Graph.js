@@ -38,8 +38,8 @@ export const floatingNode = (rowId, colId) => {
           top and left are pixels to render the start and finish node from top and left resp.
           44px is the size of each grid box and 9px to center on the grid box
         */
-        top: rowId * 44 + 9,
-        left: colId * 44 + 9,
+        top: rowId * GRID_BOX + 9,
+        left: colId * GRID_BOX + 9,
     }
 }
 
