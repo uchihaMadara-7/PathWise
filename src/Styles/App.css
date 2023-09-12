@@ -1,0 +1,50 @@
+.row-style {
+    display: flex;
+}
+
+.grid-style {
+    width: 40px;
+    height: 40px;
+    border: 1px dashed;
+}
+
+.top-row {
+    border-top: 2px solid;
+}
+
+.bottom-row {
+    border-bottom: 2px solid;
+
+}
+
+.left-col {
+    border-left: 2px solid;
+}
+
+.right-col {
+    border-right: 2px solid;
+}
+
+.source-node {
+    background: red;
+}
+
+.dest-node {
+    background: black;
+}
+
+.path-node {
+    background: cyan;
+}
+
+.actual-node-path {
+    background: #ffe54c;
+}
+
+.div-center {
+    text-align: center;
+}
+
+.table-style {
+    margin: 5px auto;
+}

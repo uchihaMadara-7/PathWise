@@ -14,12 +14,19 @@ const GRID_BOX_SIZE = 40
 
 /* Total size of grid box is 40px + 4px */
 const GRID_BOX = GRID_BOX_SIZE + BORDER_WIDTH
-const NAVBAR_HEIGHT_PX = 105.5;
+const NAVBAR_HEIGHT_PX = 106;
 const NAVBAR_HEIGHT = parseInt(NAVBAR_HEIGHT_PX / GRID_BOX);
 
 /* Since the size of each grid box is 40px = 4px of border and 40px of box */
 export const graph_row = parseInt(window.innerHeight / GRID_BOX) - NAVBAR_HEIGHT;
 export const graph_col = parseInt(window.innerWidth / GRID_BOX);
+
+const classNames = (classes) => {
+    return Object.entries(classes)
+        .filter(([key, value]) => value)
+        .map(([key, value]) => key)
+        .join(' ');
+}
 
 /* Node for the graph with row index and column index */
 export const Node = (rowId, colId) => {
@@ -72,4 +79,50 @@ export const createGraph = (row, col) => {
         graph.push(rows_array);
     }
     return graph;
+}
+
+/* Create the graph */
+export const graph = createGraph(graph_row, graph_col);
+
+/* Update the grid for re-render on the screen */
+export const updateGrid = () => {
+    let localGrid = [];
+    for (var row = 0; row < graph_row; ++row) {
+        var row_div = [];
+        for (var col = 0; col < graph_col; ++col) {
+            /*
+              classes are used to conditionally put classNames
+              This way CSS would work differently for each cell/box in the grid
+            */
+            let classes = classNames({
+                'grid-style': true,
+                'top-row': row === 0,
+                'bottom-row': row === graph_row - 1,
+                'left-col': col === 0,
+                'right-col': col === graph_col - 1,
+                'path-node': graph[row][col].is_path_node,
+                'source-node': graph[row][col].is_start,
+                'dest-node': graph[row][col].is_finish,
+                'actual-node-path': graph[row][col].is_short_path_node,
+            });
+
+            /* push the each cell in the row_div */
+            row_div.push(<td
+                key={graph_col * row + col}
+                className={classes}>
+            </td>
+            );
+
+        }
+
+        /* push the entire row_div into the localGrid */
+        localGrid.push(<tr
+            key={row}
+            className='row-style'>{row_div}
+        </tr>
+        );
+    }
+
+    /* return the localGrid which can then be used to set grid state */
+    return localGrid;
 }
