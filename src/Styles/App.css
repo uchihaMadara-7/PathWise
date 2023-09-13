@@ -38,7 +38,12 @@
 }
 
 .path-node {
-    background: #ffe54c;
+    background: #ffe54c center;
+    /*
+        background-image: url('../../public/Icons/path.png');
+    */
+    background-repeat: no-repeat;
+    background-size: 50% 50%;
 }
 
 .div-center {

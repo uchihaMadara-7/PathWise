@@ -4,6 +4,7 @@ import * as Graph from './Components/Graph';
 import * as Motion from './Components/NodeMotion';
 import { useEffect, useState, useRef } from 'react';
 import BFS from './Algorithms/BFS';
+import { animateVisitedOrder, animateShortestPath } from './UI Components/Animate';
 
 const App = () => {
 
@@ -41,37 +42,16 @@ const App = () => {
     const source_ref = useRef();
     const destination_ref = useRef();
 
-    const animateVisitedOrder = (nodes_in_visited_order) => {
-        for (let i = 0; i < nodes_in_visited_order.length; ++i) {
-            const current = nodes_in_visited_order[i];
-            setTimeout(() => {
-                Graph.markNodeAsPath(current);
-                setGrid(Graph.updateGrid());
-                Graph.markNodeVisited(current);
-                Graph.unMarkNodeAsPath(current)
-            }, (i * 20));
-        }
-    }
-
-    const animateShortestPath = (shortest_path, extra_wait) => {
-        for (let i = 0; i < shortest_path.length; ++i) {
-            const current = shortest_path[i];
-            setTimeout(() => {
-                Graph.markNodeAsPath(current);
-                setGrid(Graph.updateGrid());
-            }, extra_wait + (i * 20));
-        }
-    }
-
     /* To visualise the SSSP */
     const singeSourceShortestPath = () => {
+        /* reset the graph before begining the algorithms */
         Graph.resetGraph();
         const nodes_in_visited_order = BFS(source, destination);
-        animateVisitedOrder(nodes_in_visited_order);
+        animateVisitedOrder(nodes_in_visited_order, setGrid);
 
         const shortest_path = Graph.getShortestPath(destination);
         const extra_wait = nodes_in_visited_order.length * 20;
-        animateShortestPath(shortest_path, extra_wait);
+        animateShortestPath(shortest_path, extra_wait, setGrid);
     }
 
     return (
@@ -93,7 +73,7 @@ const App = () => {
                 ref={destination_ref}
                 className='destination'
                 onMouseDown={event => Motion.nodeStarted(event, destination_ref, false)}
-                onMouseUp={event => Motion.nodeStopped(event, destination_ref, setDestination, setGrid, false)}
+                onMouseUp={event => Motion.nodeStopped(destination_ref, setDestination, setGrid, false)}
             >
             </div>
             <table className='table-style'>

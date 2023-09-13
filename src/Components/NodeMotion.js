@@ -58,7 +58,7 @@ const destinationMotion = (event) => {
   It will recieve event, reference of the node clicked (source/destination)
   is_source to figure out whether this event was triggred by source or destination
 */
-export const nodeStopped = (event, node_ref, setNode, setGrid, is_source) => {
+export const nodeStopped = (node_ref, setNode, setGrid, is_source) => {
     if (is_source) window.removeEventListener('mousemove', sourceMotion);
     else window.removeEventListener('mousemove', destinationMotion);
 
@@ -75,9 +75,11 @@ export const nodeStopped = (event, node_ref, setNode, setGrid, is_source) => {
     });
 
 
-    Graph.resetGraph();
-    setGrid(prev => {
-        return Graph.updateGrid();
-    });
+    /*
+        Graph.resetGraph();
+        setGrid(prev => {
+            return Graph.updateGrid();
+        });
+    */
 
 }

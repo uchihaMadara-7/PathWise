@@ -50,6 +50,7 @@ export const floatingNode = (rowId, colId) => {
     }
 }
 
+/* Short way to find the neighbour nodes */
 export const neighbour = [Node(0, -1), Node(-1, 0), Node(0, 1), Node(1, 0)];
 
 /*
@@ -86,41 +87,50 @@ export const createGraph = (row, col) => {
 /* Create the graph */
 export let graph = createGraph(graph_row, graph_col);
 
+/* Check if node is inside the bounds */
 export const isValidNode = (node) => {
     if (node.rowId >= 0 && node.rowId < graph_row &&
         node.colId >= 0 && node.colId < graph_col) return true;
     return false;
 }
 
+/* Check if the node is visited */
 export const isVisitedNode = (node) => {
     return graph[node.rowId][node.colId].is_visited_node;
 }
 
+/* updates the distance using its neighbour */
 export const updateDistance = (current, nextNode) => {
     graph[nextNode.rowId][nextNode.colId].distance = graph[current.rowId][current.colId].distance + 1;
 }
 
+/* update the parent of the neighbour to current */
 export const updateParent = (current, nextNode) => {
     graph[nextNode.rowId][nextNode.colId].parent_node = current;
 }
 
+/* check if current node is destination node */
 export const isDestinationNode = (node, destination) => {
     if (node.rowId === destination.rowId && node.colId === destination.colId) return true;
     return false;
 }
 
+/* mark a node as visited in the graph */
 export const markNodeVisited = (node) => {
     graph[node.rowId][node.colId].is_visited_node = true;
 }
 
+/* mark a node as shortest path node */
 export const markNodeAsPath = (node) => {
     graph[node.rowId][node.colId].is_path_node = true;
 }
 
+/* unmark a node as shortest path node */
 export const unMarkNodeAsPath = (node) => {
     graph[node.rowId][node.colId].is_path_node = false;
 }
 
+/* reset just the visited information in the graph */
 export const resetVisitedGraph = () => {
     for (let row = 0; row < graph_row; ++row) {
         for (let col = 0; col < graph_col; ++col) {
@@ -129,29 +139,36 @@ export const resetVisitedGraph = () => {
     }
 }
 
+/* reset the graph by overriding with new graph */
 export const resetGraph = () => {
     graph = createGraph(graph_row, graph_col);
 }
 
+/* check if a node has parent, updated in the sssp */
 const hasParent = (node) => {
     if (node.parent_node.rowId !== -1 && node.parent_node.colId !== -1) return true;
     return false;
 }
 
+/* get the parent of the node */
 const getParent = (node) => {
     return graph[node.parent_node.rowId][node.parent_node.colId];
 }
 
+/* get the shortest path using parent links */
 export const getShortestPath = (destination) => {
     const shortest_path = [];
     let current = graph[destination.rowId][destination.colId];
 
+    /* continue the loop until node has no parent - source */
     while (hasParent(current)) {
         shortest_path.push(current);
         current = getParent(current);
     }
 
+    /* remove the destination node from shortest path */
     shortest_path.shift()
+    /* reverse the path, since we generate path from destination */
     shortest_path.reverse();
     return shortest_path;
 }
