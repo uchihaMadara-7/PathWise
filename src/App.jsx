@@ -1,7 +1,8 @@
 import './Styles/App.css';
 import Navbar from './UI Components/Navbar';
 import * as Graph from './Components/Graph';
-import { useEffect, useState } from 'react';
+import * as Motion from './Components/NodeMotion';
+import { useEffect, useState, useRef } from 'react';
 import BFS from './Algorithms/BFS';
 
 const App = () => {
@@ -26,12 +27,19 @@ const App = () => {
     }, []);
 
     /*
-      grid as state to show the graph canvas, source and dest are floating (can be moved in screen)
+      grid as state to show the graph canvas, source and destination are floating (can be moved in screen)
       whenever the grid will be changed, the component will be re-rendered
     */
     const [grid, setGrid] = useState();
     const [source, setSource] = useState();
     const [destination, setDestination] = useState();
+
+    /*
+      source and destination ref using useRef()
+      This way we can access the source and destination elements easily
+    */
+    const source_ref = useRef();
+    const destination_ref = useRef();
 
     const singeSourceShortestPath = () => {
         console.log("Request for SSSP!");
@@ -46,8 +54,20 @@ const App = () => {
                 Hard-coded destination to be at location: row = 15, col = 20
                 Screen size should be greater than these location as of now
             */}
-            <div className='source'></div>
-            <div className='destination'></div>
+            <div
+                ref={source_ref}
+                className='source'
+                onMouseDown={event => Motion.nodeStarted(event, source_ref, true)}
+                onMouseUp={event => Motion.nodeStopped(event, source_ref, true)}
+            >
+            </div>
+            <div
+                ref={destination_ref}
+                className='destination'
+                onMouseDown={event => Motion.nodeStarted(event, destination_ref, false)}
+                onMouseUp={event => Motion.nodeStopped(event, destination_ref, false)}
+            >
+            </div>
             <table className='table-style'>
                 <tbody>{grid}</tbody>
             </table>
