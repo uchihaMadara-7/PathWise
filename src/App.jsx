@@ -41,10 +41,37 @@ const App = () => {
     const source_ref = useRef();
     const destination_ref = useRef();
 
+    const animateVisitedOrder = (nodes_in_visited_order) => {
+        for (let i = 0; i < nodes_in_visited_order.length; ++i) {
+            const current = nodes_in_visited_order[i];
+            setTimeout(() => {
+                Graph.markNodeAsPath(current);
+                setGrid(Graph.updateGrid());
+                Graph.markNodeVisited(current);
+                Graph.unMarkNodeAsPath(current)
+            }, (i * 20));
+        }
+    }
+
+    const animateShortestPath = (shortest_path, extra_wait) => {
+        for (let i = 0; i < shortest_path.length; ++i) {
+            const current = shortest_path[i];
+            setTimeout(() => {
+                Graph.markNodeAsPath(current);
+                setGrid(Graph.updateGrid());
+            }, extra_wait + (i * 20));
+        }
+    }
+
     /* To visualise the SSSP */
     const singeSourceShortestPath = () => {
-        console.log("Request for SSSP!");
-        BFS(source, destination);
+        Graph.resetGraph();
+        const nodes_in_visited_order = BFS(source, destination);
+        animateVisitedOrder(nodes_in_visited_order);
+
+        const shortest_path = Graph.getShortestPath(destination);
+        const extra_wait = nodes_in_visited_order.length * 20;
+        animateShortestPath(shortest_path, extra_wait);
     }
 
     return (
@@ -59,14 +86,14 @@ const App = () => {
                 ref={source_ref}
                 className='source'
                 onMouseDown={event => Motion.nodeStarted(event, source_ref, true)}
-                onMouseUp={event => Motion.nodeStopped(event, source_ref, true)}
+                onMouseUp={event => Motion.nodeStopped(event, source_ref, setSource, setGrid, true)}
             >
             </div>
             <div
                 ref={destination_ref}
                 className='destination'
                 onMouseDown={event => Motion.nodeStarted(event, destination_ref, false)}
-                onMouseUp={event => Motion.nodeStopped(event, destination_ref, false)}
+                onMouseUp={event => Motion.nodeStopped(event, destination_ref, setDestination, setGrid, false)}
             >
             </div>
             <table className='table-style'>

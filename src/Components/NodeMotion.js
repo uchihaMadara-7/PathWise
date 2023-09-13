@@ -1,3 +1,5 @@
+import * as Graph from './Graph';
+
 let offSetTop, offSetLeft;
 
 /* references for the source and destination nodes will be set in these */
@@ -56,8 +58,26 @@ const destinationMotion = (event) => {
   It will recieve event, reference of the node clicked (source/destination)
   is_source to figure out whether this event was triggred by source or destination
 */
-export const nodeStopped = (event, node_ref, is_source) => {
+export const nodeStopped = (event, node_ref, setNode, setGrid, is_source) => {
     if (is_source) window.removeEventListener('mousemove', sourceMotion);
     else window.removeEventListener('mousemove', destinationMotion);
+
     /* Logic to adjust the node on center of the closest cell */
+    const node = node_ref.current;
+    const node_bounds = node.getBoundingClientRect();
+    const rowId = Math.round((node_bounds.top - Graph.NAVBAR_HEIGHT_PX - 5) / 44);
+    const colId = Math.round(node_bounds.left / 44);
+    const newNode = Graph.floatingNode(rowId, colId);
+    node.style.top = `${newNode.top}px`;
+    node.style.left = `${newNode.left}px`;
+    setNode(prev => {
+        return newNode;
+    });
+
+
+    Graph.resetGraph();
+    setGrid(prev => {
+        return Graph.updateGrid();
+    });
+
 }

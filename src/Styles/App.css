@@ -54,7 +54,7 @@
     height: 40px;
     position: absolute;
     /* row_index * 44 + 111 + 6 */
-    top: 249px;
+    top: 337px;
     /* col_index * 44 + 8 */
     left: 228px;
     background-image: url('../../public/Icons/source.png');
@@ -75,8 +75,8 @@
         top: 249px;
         left: 272px;
     */
-    top: 733px;
-    left: 844px;
+    top: 777px;
+    left: 888px;
     background-image: url('../../public/Icons/destination.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
