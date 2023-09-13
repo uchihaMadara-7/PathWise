@@ -33,11 +33,11 @@
     background: black;
 }
 
-.path-node {
+.visited-node {
     background: cyan;
 }
 
-.actual-node-path {
+.path-node {
     background: #ffe54c;
 }
 

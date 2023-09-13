@@ -2,7 +2,7 @@ import '../Styles/Navbar.css';
 import '../Styles/Button.css';
 import '../Styles/Text.css';
 
-const Navbar = () => {
+const Navbar = ({ pathFunction }) => {
 
     return (<nav className='navbar'>
         <div className='navbar-container'>
@@ -13,7 +13,7 @@ const Navbar = () => {
             </div>
             <ul className='navbar-menu'>
                 <li className='navbar-item'>
-                    <button className='button'>Visualise BFS</button>
+                    <button className='button' onClick={pathFunction}>Visualise BFS</button>
                 </li>
                 <li className="navbar-item">
                     <button className='button'>Visualise DFS</button>

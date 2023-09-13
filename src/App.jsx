@@ -2,6 +2,7 @@ import './Styles/App.css';
 import Navbar from './UI Components/Navbar';
 import * as Graph from './Components/Graph';
 import { useEffect, useState } from 'react';
+import BFS from './Algorithms/BFS';
 
 const App = () => {
 
@@ -13,6 +14,15 @@ const App = () => {
         setGrid(prev => {
             return Graph.updateGrid();
         });
+
+        setSource(prev => {
+            return Graph.floatingNode(Graph.START_NODE_X, Graph.START_NODE_Y);
+        });
+
+        setDestination(prev => {
+            return Graph.floatingNode(Graph.FINISH_NODE_X, Graph.FINISH_NODE_Y);
+        });
+
     }, []);
 
     /*
@@ -20,12 +30,17 @@ const App = () => {
       whenever the grid will be changed, the component will be re-rendered
     */
     const [grid, setGrid] = useState();
-    const [source, setSource] = useState(Graph.floatingNode(Graph.START_NODE_X, Graph.START_NODE_Y));
-    const [destination, setDestination] = useState(Graph.floatingNode(Graph.FINISH_NODE_X, Graph.FINISH_NODE_Y));
+    const [source, setSource] = useState();
+    const [destination, setDestination] = useState();
+
+    const singeSourceShortestPath = () => {
+        console.log("Request for SSSP!");
+        BFS(source, destination);
+    }
 
     return (
         <div>
-            <Navbar />
+            <Navbar pathFunction={singeSourceShortestPath} />
             {/*
                 Hard-coded source to be at location: row = 4 and col = 6
                 Hard-coded destination to be at location: row = 15, col = 20

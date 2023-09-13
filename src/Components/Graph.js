@@ -100,8 +100,8 @@ export const updateGrid = () => {
                 'bottom-row': row === graph_row - 1,
                 'left-col': col === 0,
                 'right-col': col === graph_col - 1,
-                'path-node': graph[row][col].is_visited_node,
-                'actual-node-path': graph[row][col].is_path_node,
+                'visited-node': graph[row][col].is_visited_node,
+                'path-node': graph[row][col].is_path_node,
             });
 
             /* push the each cell in the row_div */
