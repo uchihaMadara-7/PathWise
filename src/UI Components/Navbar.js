@@ -1,6 +1,7 @@
 import '../Styles/Navbar.css';
 import '../Styles/Button.css';
 import '../Styles/Text.css';
+import * as Cons from '../Components/Constants';
 
 const Navbar = ({ pathFunction }) => {
 
@@ -13,7 +14,7 @@ const Navbar = ({ pathFunction }) => {
             </div>
             <ul className='navbar-menu'>
                 <li className='navbar-item'>
-                    <button className='button' onClick={pathFunction}>Visualise BFS</button>
+                    <button className='button' onClick={() => pathFunction(Cons.BREADTH_FIRST_SEARCH)}>Visualise BFS</button>
                 </li>
                 <li className="navbar-item">
                     <button className='button'>Visualise DFS</button>

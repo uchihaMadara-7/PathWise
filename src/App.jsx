@@ -3,8 +3,8 @@ import Navbar from './UI Components/Navbar';
 import * as Graph from './Components/Graph';
 import * as Motion from './Components/NodeMotion';
 import { useEffect, useState, useRef } from 'react';
-import BFS from './Algorithms/BFS';
 import { animateVisitedOrder, animateShortestPath } from './UI Components/Animate';
+import * as Cons from './Components/Constants';
 
 const App = () => {
 
@@ -43,10 +43,10 @@ const App = () => {
     const destination_ref = useRef();
 
     /* To visualise the SSSP */
-    const singeSourceShortestPath = () => {
+    const singeSourceShortestPath = (algoIndex) => {
         /* reset the graph before begining the algorithms */
         Graph.resetGraph();
-        const nodes_in_visited_order = BFS(source, destination);
+        const nodes_in_visited_order = Cons.pathAlgorithm[algoIndex](source, destination);
         animateVisitedOrder(nodes_in_visited_order, setGrid);
 
         const shortest_path = Graph.getShortestPath(destination);

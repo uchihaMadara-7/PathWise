@@ -74,7 +74,6 @@ export const nodeStopped = (node_ref, setNode, setGrid, is_source) => {
         return newNode;
     });
 
-
     /*
         Graph.resetGraph();
         setGrid(prev => {
