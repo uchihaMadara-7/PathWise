@@ -41,6 +41,7 @@ const App = () => {
     const source_ref = useRef();
     const destination_ref = useRef();
 
+    /* To visualise the SSSP */
     const singeSourceShortestPath = () => {
         console.log("Request for SSSP!");
         BFS(source, destination);
