@@ -44,13 +44,17 @@ const App = () => {
 
     /* To visualise the SSSP */
     const singeSourceShortestPath = (algoIndex) => {
+
         /* reset the graph before begining the algorithms */
         Graph.resetGraph();
-        const nodes_in_visited_order = Cons.pathAlgorithm[algoIndex](source, destination);
-        animateVisitedOrder(nodes_in_visited_order, setGrid);
+        const interval = Cons.pathAlgorithm[algoIndex].interval;
+        const nodes_in_visited_order = Cons.pathAlgorithm[algoIndex].callback(source, destination);
+        if (nodes_in_visited_order.length === 0) return;
+        animateVisitedOrder(nodes_in_visited_order, interval, setGrid);
 
         const shortest_path = Graph.getShortestPath(destination);
-        const extra_wait = nodes_in_visited_order.length * 20;
+        const extra_wait = nodes_in_visited_order.length * interval;
+        if (shortest_path.length === 0) return;
         animateShortestPath(shortest_path, extra_wait, setGrid);
     }
 
@@ -66,7 +70,7 @@ const App = () => {
                 ref={source_ref}
                 className='source'
                 onMouseDown={event => Motion.nodeStarted(event, source_ref, true)}
-                onMouseUp={event => Motion.nodeStopped(event, source_ref, setSource, setGrid, true)}
+                onMouseUp={event => Motion.nodeStopped(source_ref, setSource, setGrid, true)}
             >
             </div>
             <div

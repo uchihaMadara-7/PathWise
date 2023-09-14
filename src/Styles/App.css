@@ -39,11 +39,6 @@
 
 .path-node {
     background: #ffe54c center;
-    /*
-        background-image: url('../../public/Icons/path.png');
-    */
-    background-repeat: no-repeat;
-    background-size: 50% 50%;
 }
 
 .div-center {
@@ -80,8 +75,8 @@
         top: 249px;
         left: 272px;
     */
-    top: 777px;
-    left: 888px;
+    top: 557px;
+    left: 448px;
     background-image: url('../../public/Icons/destination.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;

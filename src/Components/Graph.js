@@ -1,7 +1,7 @@
 export const START_NODE_X = 5;
 export const START_NODE_Y = 5;
-export const FINISH_NODE_X = 15;
-export const FINISH_NODE_Y = 20;
+export const FINISH_NODE_X = 10;
+export const FINISH_NODE_Y = 10;
 
 /*
   Border is actually 1px which merge with neighbour to form 2px
@@ -18,9 +18,10 @@ export const NAVBAR_HEIGHT_PX = 106;
 export const NAVBAR_HEIGHT = parseInt(NAVBAR_HEIGHT_PX / GRID_BOX);
 
 /* Since the size of each grid box is 40px = 4px of border and 40px of box */
-export const graph_row = parseInt(window.innerHeight / GRID_BOX) - NAVBAR_HEIGHT;
+export const graph_row = parseInt((window.innerHeight - NAVBAR_HEIGHT_PX) / GRID_BOX);
 export const graph_col = parseInt(window.innerWidth / GRID_BOX);
 
+/* classNames can be used dynamically using this */
 const classNames = (classes) => {
     return Object.entries(classes)
         .filter(([key, value]) => value)
@@ -104,6 +105,14 @@ export const updateDistance = (current, nextNode) => {
     graph[nextNode.rowId][nextNode.colId].distance = graph[current.rowId][current.colId].distance + 1;
 }
 
+/* If new incoming path  is better than already existing */
+export const isBetterPath = (current, nextNode) => {
+    if (graph[nextNode.rowId][nextNode.colId].distance === Infinity) return true;
+    if (graph[nextNode.rowId][nextNode.colId].distance >
+        (graph[current.rowId][current.colId].distance + 1)) return true;
+    return false;
+}
+
 /* update the parent of the neighbour to current */
 export const updateParent = (current, nextNode) => {
     graph[nextNode.rowId][nextNode.colId].parent_node = current;
@@ -118,6 +127,11 @@ export const isDestinationNode = (node, destination) => {
 /* mark a node as visited in the graph */
 export const markNodeVisited = (node) => {
     graph[node.rowId][node.colId].is_visited_node = true;
+}
+
+/* mark a node as un-visited in the graph */
+export const unMarkNodeVisited = (node) => {
+    graph[node.rowId][node.colId].is_visited_node = false;
 }
 
 /* mark a node as shortest path node */
@@ -179,6 +193,7 @@ export const updateGrid = () => {
     for (var row = 0; row < graph_row; ++row) {
         var row_div = [];
         for (var col = 0; col < graph_col; ++col) {
+            const current = graph[row][col];
             /*
               classes are used to conditionally put classNames
               This way CSS would work differently for each cell/box in the grid
@@ -190,7 +205,7 @@ export const updateGrid = () => {
                 'left-col': col === 0,
                 'right-col': col === graph_col - 1,
                 'visited-node': graph[row][col].is_visited_node,
-                'path-node': graph[row][col].is_path_node,
+                'path-node': (current.is_path_node),
             });
 
             /* push the each cell in the row_div */

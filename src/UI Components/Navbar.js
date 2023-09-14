@@ -17,7 +17,7 @@ const Navbar = ({ pathFunction }) => {
                     <button className='button' onClick={() => pathFunction(Cons.BREADTH_FIRST_SEARCH)}>Visualise BFS</button>
                 </li>
                 <li className="navbar-item">
-                    <button className='button'>Visualise DFS</button>
+                    <button className='button' onClick={() => pathFunction(Cons.DEPTH_FIRST_SEARCH)}>Visualise DFS</button>
                 </li>
                 {/* Add more navigation items here if needed */}
             </ul>
