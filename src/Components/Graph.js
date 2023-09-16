@@ -21,8 +21,8 @@ export const NAVBAR_HEIGHT_PX = 106;
 export const NAVBAR_HEIGHT = parseInt(NAVBAR_HEIGHT_PX / GRID_BOX);
 
 /* Since the size of each grid box is 40px = 4px of border and 40px of box */
-export const graph_row = parseInt((window.innerHeight - NAVBAR_HEIGHT_PX) / GRID_BOX);
-export const graph_col = parseInt(window.innerWidth / GRID_BOX);
+export let graph_row = parseInt((window.innerHeight - NAVBAR_HEIGHT_PX) / GRID_BOX);
+export let graph_col = parseInt(window.innerWidth / GRID_BOX);
 
 /* classNames can be used dynamically using this */
 const classNames = (classes) => {
@@ -176,8 +176,12 @@ export const resetVisitedGraph = () => {
 }
 
 /* reset the graph by overriding with new graph */
-export const resetGraph = () => {
+export const resetGraph = (setGrid) => {
+    /* Since the size of each grid box is 40px = 4px of border and 40px of box */
+    graph_row = parseInt((window.innerHeight - NAVBAR_HEIGHT_PX) / GRID_BOX);
+    graph_col = parseInt(window.innerWidth / GRID_BOX);
     graph = createGraph(graph_row, graph_col);
+    setGrid(updateGrid());
 }
 
 /* check if a node has parent, updated in the sssp */

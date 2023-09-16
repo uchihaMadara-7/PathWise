@@ -82,11 +82,6 @@ export const nodeStopped = (node_ref, setNode, setGrid, is_source) => {
         return newNode;
     });
 
-    /*
-        Graph.resetGraph();
-        setGrid(prev => {
-            return Graph.updateGrid();
-        });
-    */
-
+    /* reset the graph and canvas on source or destination change */
+    Graph.resetGraph(setGrid);
 }

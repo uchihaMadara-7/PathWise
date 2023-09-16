@@ -8,9 +8,9 @@ import * as Cons from './Components/Constants';
 
 const App = () => {
 
-    const handleMouseDown = (event) => {
-        const rowId = parseInt((event.clientY - Graph.NAVBAR_HEIGHT_PX - 5) / Graph.GRID_BOX);
-        const colId = parseInt(event.clientX / Graph.GRID_BOX);
+    /* handle to callback from window resize listener */
+    const resizeHandle = () => {
+        Graph.resetGraph(setGrid);
     }
 
     /*
@@ -38,7 +38,16 @@ const App = () => {
             return false;
         })
 
-        //window.addEventListener('mousedown', handleMouseDown);
+        /* Add listener for window resize */
+        window.addEventListener('resize', resizeHandle);
+
+        return () => {
+            /*
+              remove listener for window resize
+              This works same as ComponentWillUnmount()
+            */
+            window.removeEventListener('resize', resizeHandle);
+        }
 
     }, []);
 
@@ -62,7 +71,7 @@ const App = () => {
     const singeSourceShortestPath = (algoIndex) => {
 
         /* reset the graph before begining the algorithms */
-        Graph.resetGraph();
+        Graph.resetGraph(setGrid);
         const interval = Cons.pathAlgorithm[algoIndex].interval;
         const nodes_in_visited_order = Cons.pathAlgorithm[algoIndex].callback(source, destination);
         if (nodes_in_visited_order.length === 0) return;
