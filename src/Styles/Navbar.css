@@ -2,6 +2,8 @@
 .navbar {
     border: black solid 1px;
     padding: 10px 0;
+    margin: 15px;
+    margin-top: 10px;
 }
 
 .navbar-container {

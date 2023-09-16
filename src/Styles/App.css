@@ -1,3 +1,45 @@
+.div-center {
+    text-align: center;
+}
+
+.table-style {
+    margin: 5px auto;
+}
+
+.source {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    /* row_index * 44 + 111 + 6 */
+    top: 337px;
+    /* col_index * 44 + 8 */
+    left: 228px;
+    background-image: url('../../public/Icons/source.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.destination {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    /*
+    this is row = 4, col = 7
+    find div id = 4 * max_col + 7
+    from the element.getBoundingClientRect() get left, and top
+    add 3 to top and 3 to left
+        top: 249px;
+        left: 272px;
+    */
+    top: 557px;
+    left: 448px;
+    background-image: url('../../public/Icons/destination.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
 .row-style {
     display: flex;
 }
@@ -135,46 +177,4 @@
     background-repeat: no-repeat;
     background-size: 30% 30%;
     transform: rotate(0deg);
-}
-
-.div-center {
-    text-align: center;
-}
-
-.table-style {
-    margin: 5px auto;
-}
-
-.source {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    /* row_index * 44 + 111 + 6 */
-    top: 337px;
-    /* col_index * 44 + 8 */
-    left: 228px;
-    background-image: url('../../public/Icons/source.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    cursor: pointer;
-}
-
-.destination {
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    /*
-    this is row = 4, col = 7
-    find div id = 4 * max_col + 7
-    from the element.getBoundingClientRect() get left, and top
-    add 3 to top and 3 to left
-        top: 249px;
-        left: 272px;
-    */
-    top: 557px;
-    left: 448px;
-    background-image: url('../../public/Icons/destination.png');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    cursor: pointer;
 }

@@ -110,7 +110,7 @@ const App = () => {
                 onMouseUp={event => Motion.nodeStopped(destination_ref, setDestination, setGrid, false)}
             >
             </div>
-            <table className='table-style'>
+            <table id='grid' className='table-style'>
                 <tbody>{grid}</tbody>
             </table>
         </div>
