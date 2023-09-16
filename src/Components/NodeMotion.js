@@ -65,8 +65,8 @@ export const nodeStopped = (node_ref, setNode, setGrid, is_source) => {
     /* Logic to adjust the node on center of the closest cell */
     const node = node_ref.current;
     const node_bounds = node.getBoundingClientRect();
-    const rowId = Math.round((node_bounds.top - Graph.NAVBAR_HEIGHT_PX - 5) / 44);
-    const colId = Math.round(node_bounds.left / 44);
+    const rowId = Math.round((node_bounds.top - Graph.NAVBAR_HEIGHT_PX - 5) / Graph.GRID_BOX);
+    const colId = Math.round(node_bounds.left / Graph.GRID_BOX);
     const newNode = Graph.floatingNode(rowId, colId);
     node.style.top = `${newNode.top}px`;
     node.style.left = `${newNode.left}px`;

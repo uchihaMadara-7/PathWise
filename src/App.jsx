@@ -8,6 +8,11 @@ import * as Cons from './Components/Constants';
 
 const App = () => {
 
+    const handleMouseDown = (event) => {
+        const rowId = parseInt((event.clientY - Graph.NAVBAR_HEIGHT_PX - 5) / Graph.GRID_BOX);
+        const colId = parseInt(event.clientX / Graph.GRID_BOX);
+    }
+
     /*
       useEffect() works as ComponentDidMount() i.e. it will work the first time
       app is rendered. So this is a good place to initialise state
@@ -24,6 +29,8 @@ const App = () => {
         setDestination(prev => {
             return Graph.floatingNode(Graph.FINISH_NODE_X, Graph.FINISH_NODE_Y);
         });
+
+        //window.addEventListener('mousedown', handleMouseDown);
 
     }, []);
 
@@ -55,7 +62,7 @@ const App = () => {
         const shortest_path = Graph.getShortestPath(destination);
         const extra_wait = nodes_in_visited_order.length * interval;
         if (shortest_path.length === 0) return;
-        animateShortestPath(shortest_path, extra_wait, setGrid);
+        animateShortestPath(source, destination, shortest_path, extra_wait, setGrid);
     }
 
     return (

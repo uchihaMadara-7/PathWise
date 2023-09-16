@@ -1,3 +1,5 @@
+import * as Cons from './Constants';
+
 export const START_NODE_X = 5;
 export const START_NODE_Y = 5;
 export const FINISH_NODE_X = 10;
@@ -13,7 +15,7 @@ const BORDER_WIDTH = 4
 const GRID_BOX_SIZE = 40
 
 /* Total size of grid box is 40px + 4px */
-const GRID_BOX = GRID_BOX_SIZE + BORDER_WIDTH
+export const GRID_BOX = GRID_BOX_SIZE + BORDER_WIDTH
 export const NAVBAR_HEIGHT_PX = 106;
 export const NAVBAR_HEIGHT = parseInt(NAVBAR_HEIGHT_PX / GRID_BOX);
 
@@ -67,6 +69,7 @@ export const GraphNode = (rowId, colId) => {
         colId,
         parent_node: Node(-1, -1),
         distance: Infinity,
+        direction: -1,
         is_visited_node: false,
         is_path_node: false,
     }
@@ -187,6 +190,81 @@ export const getShortestPath = (destination) => {
     return shortest_path;
 }
 
+/* set the direction field of node to direction */
+const setDirection = (node, direction) => {
+    graph[node.rowId][node.colId].direction = direction;
+}
+
+/* This function computes the direction in the shortest path */
+export const findDirection = (source, destination, shortest_path) => {
+    /* Add source and destination in shortest path for direction computation */
+    shortest_path.unshift(source);
+    shortest_path.push(destination);
+
+    for (let i = 1; i < shortest_path.length - 1; ++i) {
+        const current = shortest_path[i];
+        const prev = shortest_path[i - 1];
+        const next = shortest_path[i + 1];
+
+        /* if prev is on left and next on right, then direction of current is right */
+        if ((current.colId - 1) === prev.colId && (current.colId + 1) === next.colId) {
+            setDirection(current, Cons.DIRECTION_RIGHT);
+            continue;
+        }
+        /* if prev is on right and next on left, then direction of current is left */
+        if ((current.colId + 1) === prev.colId && (current.colId - 1) === next.colId) {
+            setDirection(current, Cons.DIRECTION_LEFT);
+            continue;
+        }
+        /* if prev is up and next is down, then direction of current is down */
+        if ((current.rowId - 1) === prev.rowId && (current.rowId + 1) === next.rowId) {
+            setDirection(current, Cons.DIRECTION_DOWN);
+            continue;
+        }
+        /* if prev is down and next is up, then direction of current is up */
+        if ((current.rowId + 1) === prev.rowId && (current.rowId - 1) === next.rowId) {
+            setDirection(current, Cons.DIRECTION_UP);
+            continue;
+        }
+        /* all the 8 corner conditions are handled below for direction in corners/turns */
+        if ((current.colId - 1) === prev.colId && (current.rowId + 1) === next.rowId) {
+            setDirection(current, Cons.DIRECTION_LEFT_DOwN);
+            continue;
+        }
+        if ((current.colId - 1) === prev.colId && (current.rowId - 1) === next.rowId) {
+            setDirection(current, Cons.DIRECTION_LEFT_UP);
+            continue;
+        }
+        if ((current.colId + 1) === prev.colId && (current.rowId + 1) === next.rowId) {
+            setDirection(current, Cons.DIRECTION_RIGHT_DOWN);
+            continue;
+        }
+        if ((current.colId + 1) === prev.colId && (current.rowId - 1) === next.rowId) {
+            setDirection(current, Cons.DIRECTION_RIGHT_UP);
+            continue;
+        }
+        if ((current.rowId - 1) === prev.rowId && (current.colId - 1) === next.colId) {
+            setDirection(current, Cons.DIRECTION_UP_LEFT);
+            continue;
+        }
+        if ((current.rowId - 1) === prev.rowId && (current.colId + 1) === next.colId) {
+            setDirection(current, Cons.DIRECTION_UP_RIGHT);
+            continue;
+        }
+        if ((current.rowId + 1) === prev.rowId && (current.colId - 1) === next.colId) {
+            setDirection(current, Cons.DIRECTION_DOWN_LEFT);
+            continue;
+        }
+        if ((current.rowId + 1) === prev.rowId && (current.colId + 1) === next.colId) {
+            setDirection(current, Cons.DIRECTION_DOWN_RIGHT);
+        }
+    }
+
+    /* Removes the source and destination from the shortest path */
+    shortest_path.shift();
+    shortest_path.pop();
+}
+
 /* Update the grid for re-render on the screen */
 export const updateGrid = () => {
     let localGrid = [];
@@ -206,6 +284,18 @@ export const updateGrid = () => {
                 'right-col': col === graph_col - 1,
                 'visited-node': graph[row][col].is_visited_node,
                 'path-node': (current.is_path_node),
+                'path-node-left': (current.is_path_node && current.direction === Cons.DIRECTION_LEFT),
+                'path-node-right': (current.is_path_node && current.direction === Cons.DIRECTION_RIGHT),
+                'path-node-down': (current.is_path_node && current.direction === Cons.DIRECTION_DOWN),
+                'path-node-up': (current.is_path_node && current.direction === Cons.DIRECTION_UP),
+                'path-node-left-up': (current.is_path_node && current.direction === Cons.DIRECTION_LEFT_UP),
+                'path-node-left-down': (current.is_path_node && current.direction === Cons.DIRECTION_LEFT_DOwN),
+                'path-node-right-up': (current.is_path_node && current.direction === Cons.DIRECTION_RIGHT_UP),
+                'path-node-right-down': (current.is_path_node && current.direction === Cons.DIRECTION_RIGHT_DOWN),
+                'path-node-up-left': (current.is_path_node && current.direction === Cons.DIRECTION_UP_LEFT),
+                'path-node-up-right': (current.is_path_node && current.direction === Cons.DIRECTION_UP_RIGHT),
+                'path-node-down-left': (current.is_path_node && current.direction === Cons.DIRECTION_DOWN_LEFT),
+                'path-node-down-right': (current.is_path_node && current.direction === Cons.DIRECTION_DOWN_RIGHT),
             });
 
             /* push the each cell in the row_div */

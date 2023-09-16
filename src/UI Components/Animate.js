@@ -19,10 +19,12 @@ export const animateVisitedOrder = (nodes_in_visited_order, interval, setGrid) =
 }
 
 /* animate the shortest path using setState */
-export const animateShortestPath = (shortest_path, extra_wait, setGrid) => {
+export const animateShortestPath = (source, destination, shortest_path, extra_wait, setGrid) => {
     /* Initial set state in-case nodes are next to each other */
     setTimeout(() => {
         setGrid(Graph.updateGrid());
+        /* this fill the direction of each node based on the previous and next-node */
+        Graph.findDirection(source, destination, shortest_path);
     }, extra_wait);
 
     extra_wait = extra_wait + 20;
