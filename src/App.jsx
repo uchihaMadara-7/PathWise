@@ -30,6 +30,10 @@ const App = () => {
             return Graph.floatingNode(Graph.FINISH_NODE_X, Graph.FINISH_NODE_Y);
         });
 
+        setObstaclesMode(prev => {
+            return false;
+        })
+
         //window.addEventListener('mousedown', handleMouseDown);
 
     }, []);
@@ -41,6 +45,7 @@ const App = () => {
     const [grid, setGrid] = useState();
     const [source, setSource] = useState();
     const [destination, setDestination] = useState();
+    const [obstaclesMode, setObstaclesMode] = useState();
 
     /*
       source and destination ref using useRef()
@@ -67,7 +72,10 @@ const App = () => {
 
     return (
         <div>
-            <Navbar pathFunction={singeSourceShortestPath} />
+            <Navbar
+                pathFunction={singeSourceShortestPath}
+                otherProps={{ obstaclesMode, setObstaclesMode }}
+            />
             {/*
                 Hard-coded source to be at location: row = 4 and col = 6
                 Hard-coded destination to be at location: row = 15, col = 20
