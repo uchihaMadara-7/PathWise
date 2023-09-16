@@ -1,9 +1,10 @@
 import * as Cons from './Constants';
 
-export const START_NODE_X = 5;
-export const START_NODE_Y = 5;
-export const FINISH_NODE_X = 10;
-export const FINISH_NODE_Y = 10;
+
+export const START_NODE_TOP = 5;
+export const START_NODE_LEFT = 5;
+export const FINISH_NODE_TOP = 10;
+export const FINISH_NODE_LEFT = 10;
 
 /*
   Border is actually 1px which merge with neighbour to form 2px
@@ -12,7 +13,7 @@ export const FINISH_NODE_Y = 10;
 const BORDER_WIDTH = 4
 
 /* A single box in grid is (40px * 40px) in size */
-const GRID_BOX_SIZE = 40
+export const GRID_BOX_SIZE = 40
 
 /* Total size of grid box is 40px + 4px */
 export const GRID_BOX = GRID_BOX_SIZE + BORDER_WIDTH
@@ -41,6 +42,24 @@ export const Node = (rowId, colId) => {
 
 /* Node for graph with row index, column index, and x and y denoting pixels */
 export const floatingNode = (rowId, colId) => {
+
+    const cell_element = document.getElementById(rowId * graph_col + colId)
+    if (!cell_element) return;
+
+    /* Snap to closes cell if the element is out of bounds i.e. cell is null */
+    const cell = cell_element.getBoundingClientRect();
+
+    /* Logic for centering the source/destination to the center of the cell under-neath it */
+    const cell_centre = {
+        top: cell.top + (GRID_BOX / 2),
+        left: cell.left + (GRID_BOX / 2),
+    };
+
+    const newNode = {
+        top: cell_centre.top - (GRID_BOX_SIZE / 2),
+        left: cell_centre.left - (GRID_BOX_SIZE / 2),
+    };
+
     return {
         rowId,
         colId,
@@ -48,8 +67,8 @@ export const floatingNode = (rowId, colId) => {
           top and left are pixels to render the start and finish node from top and left resp.
           44px is the size of each grid box and 9px to center on the grid box
         */
-        top: rowId * GRID_BOX + NAVBAR_HEIGHT_PX + 11,
-        left: colId * GRID_BOX + 8,
+        top: newNode.top,
+        left: newNode.left,
     }
 }
 
@@ -278,6 +297,11 @@ export const updateGrid = () => {
             */
             let classes = classNames({
                 'grid-style': true,
+                /*
+                  TBD:
+                    remove logic for top-row, bottom-row, left-col, right-col
+                    and use border-collapse property in css which doesn't let border merge
+                */
                 'top-row': row === 0,
                 'bottom-row': row === graph_row - 1,
                 'left-col': col === 0,

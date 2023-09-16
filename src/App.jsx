@@ -18,16 +18,20 @@ const App = () => {
       app is rendered. So this is a good place to initialise state
     */
     useEffect(() => {
-        setGrid(prev => {
-            return Graph.updateGrid();
-        });
-
         setSource(prev => {
-            return Graph.floatingNode(Graph.START_NODE_X, Graph.START_NODE_Y);
+            const newNode = Graph.floatingNode(Graph.START_NODE_TOP, Graph.START_NODE_LEFT);
+            const element = document.getElementById('source');
+            element.style.top = `${newNode.top}px`;
+            element.style.left = `${newNode.left}px`;
+            return newNode;
         });
 
         setDestination(prev => {
-            return Graph.floatingNode(Graph.FINISH_NODE_X, Graph.FINISH_NODE_Y);
+            const newNode = Graph.floatingNode(Graph.FINISH_NODE_TOP, Graph.FINISH_NODE_LEFT);
+            const element = document.getElementById('destination');
+            element.style.top = `${newNode.top}px`;
+            element.style.left = `${newNode.left}px`;
+            return newNode;
         });
 
         setObstaclesMode(prev => {
@@ -42,7 +46,7 @@ const App = () => {
       grid as state to show the graph canvas, source and destination are floating (can be moved in screen)
       whenever the grid will be changed, the component will be re-rendered
     */
-    const [grid, setGrid] = useState();
+    const [grid, setGrid] = useState(Graph.updateGrid());
     const [source, setSource] = useState();
     const [destination, setDestination] = useState();
     const [obstaclesMode, setObstaclesMode] = useState();
@@ -82,6 +86,7 @@ const App = () => {
                 Screen size should be greater than these location as of now
             */}
             <div
+                id='source'
                 ref={source_ref}
                 className='source'
                 onMouseDown={event => Motion.nodeStarted(event, source_ref, true)}
@@ -89,6 +94,7 @@ const App = () => {
             >
             </div>
             <div
+                id='destination'
                 ref={destination_ref}
                 className='destination'
                 onMouseDown={event => Motion.nodeStarted(event, destination_ref, false)}
