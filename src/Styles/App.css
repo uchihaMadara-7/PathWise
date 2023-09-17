@@ -1,6 +1,7 @@
 .table-style {
     margin: 5px auto;
-    border: 2px solid;
+    border: grey 1px solid;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 2px 3px 0px, rgba(60, 64, 67, 0.15) 0px 2px 4px 2px;
     border-collapse: collapse;
 }
 

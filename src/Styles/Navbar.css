@@ -1,9 +1,10 @@
 /* Navbar CSS */
 .navbar {
-    border: black solid 1px;
+    border: grey solid 1px;
     padding: 10px 0;
     margin: 15px;
     margin-top: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 2px 3px 0px, rgba(60, 64, 67, 0.15) 0px 2px 4px 2px;
 }
 
 .navbar-container {
