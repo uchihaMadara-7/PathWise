@@ -1,9 +1,7 @@
-.div-center {
-    text-align: center;
-}
-
 .table-style {
     margin: 5px auto;
+    border: 2px solid;
+    border-collapse: collapse;
 }
 
 .source {
@@ -41,20 +39,20 @@
 }
 
 .top-row {
-    border-top: 2px solid;
+    border-top: none;
 }
 
 .bottom-row {
-    border-bottom: 2px solid;
+    border-bottom: none;
 
 }
 
 .left-col {
-    border-left: 2px solid;
+    border-left: none;
 }
 
 .right-col {
-    border-right: 2px solid;
+    border-right: none;
 }
 
 .visited-node {
@@ -149,11 +147,9 @@
     transform: rotate(0deg);
 }
 
-.mark-non-obstacle {
-    background-color: none;
-}
-
 .mark-obstacle {
-    background-color: grey;
-    background-image: none;
+    background: grey center;
+    background-image: url('../../public/Icons/obstacle.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
 }

@@ -11,7 +11,7 @@ const RecurDFS = (current, destination) => {
         const colId = current.colId + Graph.neighbour[i].colId;
         const nextNode = Graph.Node(rowId, colId);
 
-        if (Graph.isValidNode(nextNode) && !Graph.isVisitedNode(nextNode)) {
+        if (Graph.isValidNode(nextNode) && !Graph.isVisitedNode(nextNode) && !Graph.isObstacle(nextNode)) {
             if (Graph.isBetterPath(current, nextNode)) {
                 Graph.updateDistance(current, nextNode);
                 Graph.updateParent(current, nextNode);

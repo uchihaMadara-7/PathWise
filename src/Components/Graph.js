@@ -125,7 +125,7 @@ export const isVisitedNode = (node) => {
 
 /* Check if the node is an obstacle */
 export const isObstacle = (node) => {
-    return graph[node.rowId][node.colId].is_obstacle;
+    return (isValidNode(node) && graph[node.rowId][node.colId].is_obstacle);
 }
 
 /* updates the distance using its neighbour */
@@ -174,11 +174,13 @@ export const unMarkNodeAsPath = (node) => {
 
 /* mark a node as obstacle node */
 export const markAsObstacle = (node) => {
+    if (!isValidNode(node)) return;
     graph[node.rowId][node.colId].is_obstacle = true;
 }
 
 /* unmark a node as obstacle node */
 export const unMarkAsObstacle = (node) => {
+    if (!isValidNode(node)) return;
     graph[node.rowId][node.colId].is_obstacle = false;
 }
 
@@ -340,6 +342,7 @@ export const updateGrid = () => {
                 'left-col': col === 0,
                 'right-col': col === graph_col - 1,
                 'visited-node': graph[row][col].is_visited_node,
+                'mark-obstacle': (current.is_obstacle),
                 'path-node': (current.is_path_node),
                 'path-node-left': (current.is_path_node && current.direction === Cons.DIRECTION_LEFT),
                 'path-node-right': (current.is_path_node && current.direction === Cons.DIRECTION_RIGHT),
@@ -357,6 +360,7 @@ export const updateGrid = () => {
 
             /* push the each cell in the row_div */
             row_div.push(<td
+                iscell={1}
                 id={graph_col * row + col}
                 key={graph_col * row + col}
                 className={classes}>
