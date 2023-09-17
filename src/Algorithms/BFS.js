@@ -17,7 +17,7 @@ const BFS = (source, destination) => {
             const colId = current.colId + Graph.neighbour[i].colId;
             const nextNode = Graph.Node(rowId, colId);
 
-            if (Graph.isValidNode(nextNode) && !Graph.isVisitedNode(nextNode)) {
+            if (Graph.isValidNode(nextNode) && !Graph.isVisitedNode(nextNode) && !Graph.isObstacle(nextNode)) {
                 Graph.markNodeVisited(nextNode);
                 Graph.updateDistance(current, nextNode);
                 Graph.updateParent(current, nextNode);
@@ -33,6 +33,7 @@ const BFS = (source, destination) => {
         }
     }
 
+    Graph.resetVisitedGraph();
     return nodes_in_visited_order;
 }
 

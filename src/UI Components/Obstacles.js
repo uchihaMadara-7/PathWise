@@ -3,23 +3,32 @@ import * as Graph from '../Components/Graph';
 /* Keeps track of the last visited cell when mouse is moving */
 let last_visited = -1;
 
-/* This marks the cell as grey or white depending upon the color */
+/* This marks the cell as grey or white depending if it is already obstacle */
 const markCell = (event) => {
     const element = document.elementFromPoint(event.clientX, event.clientY);
     if (!element || (last_visited === element.id)) return;
 
     last_visited = element.id;
-    if (element.style.backgroundColor === 'grey') element.style.backgroundColor = '';
-    else element.style.backgroundColor = 'grey';
-
     /* Book keeping for later use */
     const id = element.id;
     const colId = id % Graph.graph_col;
-    const rowId = Math.floor(id / Graph.graph_row);
+    const rowId = Math.floor(id / Graph.graph_col);
+    const node = Graph.Node(rowId, colId);
+
+    if (Graph.isObstacle(node)) {
+        element.classList.toggle('mark-non-obstacle', true);
+        element.classList.toggle('mark-obstacle', false);
+        Graph.unMarkAsObstacle(node);
+    }
+    else {
+        element.classList.toggle('mark-obstacle', true);
+        element.classList.toggle('mark-non-obstacle', false);
+        Graph.markAsObstacle(node);
+    }
 }
 
 /* This function handles mouse pressed event */
-export const mousePressed = (event) => {
+const mousePressed = (event) => {
     const element = document.getElementById('grid');
     if (!element) {
         console.error('Table no found!');
@@ -31,7 +40,7 @@ export const mousePressed = (event) => {
 }
 
 /* This function handles mouse released event */
-export const mouseReleased = () => {
+const mouseReleased = () => {
     const element = document.getElementById('grid');
     if (!element) {
         console.error('Table no found!');

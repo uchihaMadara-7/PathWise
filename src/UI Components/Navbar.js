@@ -1,7 +1,7 @@
 import '../Styles/Navbar.css';
 import '../Styles/Button.css';
 import '../Styles/Text.css';
-import * as Obs from '../UI Components/Obstacles';
+import { toggleMode } from '../UI Components/Obstacles';
 import * as Cons from '../Components/Constants';
 
 const Navbar = ({ pathFunction, otherProps }) => {
@@ -23,7 +23,7 @@ const Navbar = ({ pathFunction, otherProps }) => {
                     <button className='button' onClick={() => pathFunction(Cons.DEPTH_FIRST_SEARCH)}>Visualise DFS</button>
                 </li>
                 <li>
-                    <button className='button' onClick={() => Obs.toggleMode(obstaclesMode, setObstaclesMode)}>
+                    <button className='button' onClick={() => toggleMode(obstaclesMode, setObstaclesMode)}>
                         {obstaclesMode ? 'Disable Obstacles' : 'Enable Obstacles'}
                     </button>
                 </li>

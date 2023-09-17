@@ -89,6 +89,7 @@ export const GraphNode = (rowId, colId) => {
         parent_node: Node(-1, -1),
         distance: Infinity,
         direction: -1,
+        is_obstacle: false,
         is_visited_node: false,
         is_path_node: false,
     }
@@ -120,6 +121,11 @@ export const isValidNode = (node) => {
 /* Check if the node is visited */
 export const isVisitedNode = (node) => {
     return graph[node.rowId][node.colId].is_visited_node;
+}
+
+/* Check if the node is an obstacle */
+export const isObstacle = (node) => {
+    return graph[node.rowId][node.colId].is_obstacle;
 }
 
 /* updates the distance using its neighbour */
@@ -166,6 +172,16 @@ export const unMarkNodeAsPath = (node) => {
     graph[node.rowId][node.colId].is_path_node = false;
 }
 
+/* mark a node as obstacle node */
+export const markAsObstacle = (node) => {
+    graph[node.rowId][node.colId].is_obstacle = true;
+}
+
+/* unmark a node as obstacle node */
+export const unMarkAsObstacle = (node) => {
+    graph[node.rowId][node.colId].is_obstacle = false;
+}
+
 /* reset just the visited information in the graph */
 export const resetVisitedGraph = () => {
     for (let row = 0; row < graph_row; ++row) {
@@ -178,9 +194,22 @@ export const resetVisitedGraph = () => {
 /* reset the graph by overriding with new graph */
 export const resetGraph = (setGrid) => {
     /* Since the size of each grid box is 40px = 4px of border and 40px of box */
-    graph_row = parseInt((window.innerHeight - NAVBAR_HEIGHT_PX) / GRID_BOX);
-    graph_col = parseInt(window.innerWidth / GRID_BOX);
-    graph = createGraph(graph_row, graph_col);
+    const new_graph_row = parseInt((window.innerHeight - NAVBAR_HEIGHT_PX) / GRID_BOX);
+    const new_graph_col = parseInt(window.innerWidth / GRID_BOX);
+    const localGraph = createGraph(new_graph_row, new_graph_col);
+    for (let row = 0; row < new_graph_row; ++row) {
+        for (let col = 0; col < new_graph_col; ++col) {
+
+            /* copy the old values of obstacles from previous graph */
+            const node = Node(row, col);
+            if (isValidNode(node) && isObstacle(node)) {
+                localGraph[row][col].is_obstacle = true;
+            }
+        }
+    }
+    graph_row = new_graph_row;
+    graph_col = new_graph_col;
+    graph = localGraph;
     setGrid(updateGrid());
 }
 
