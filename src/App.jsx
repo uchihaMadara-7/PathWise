@@ -10,6 +10,8 @@ const App = () => {
 
     /* handle to callback from window resize listener */
     const resizeHandle = () => {
+        Motion.resetSource(setSource);
+        Motion.resetDestination(setDestination);
         Graph.resetGraph(setGrid);
     }
 
@@ -20,17 +22,13 @@ const App = () => {
     useEffect(() => {
         setSource(prev => {
             const newNode = Graph.floatingNode(Graph.START_NODE_TOP, Graph.START_NODE_LEFT);
-            const element = document.getElementById('source');
-            element.style.top = `${newNode.top}px`;
-            element.style.left = `${newNode.left}px`;
+            Motion.resetSource(setSource);
             return newNode;
         });
 
         setDestination(prev => {
             const newNode = Graph.floatingNode(Graph.FINISH_NODE_TOP, Graph.FINISH_NODE_LEFT);
-            const element = document.getElementById('destination');
-            element.style.top = `${newNode.top}px`;
-            element.style.left = `${newNode.left}px`;
+            Motion.resetDestination(setDestination);
             return newNode;
         });
 

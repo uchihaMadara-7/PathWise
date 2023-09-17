@@ -57,14 +57,6 @@
     border-right: 2px solid;
 }
 
-.source-node {
-    background: red;
-}
-
-.dest-node {
-    background: black;
-}
-
 .visited-node {
     background: cyan;
 }

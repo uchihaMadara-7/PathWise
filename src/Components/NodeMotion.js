@@ -5,6 +5,33 @@ let offSetTop, offSetLeft;
 /* references for the source and destination nodes will be set in these */
 let source_ref, destination_ref;
 
+/* re-position the given element to node position of top and left*/
+export const rePosition = (element, node) => {
+    if (!element) return;
+    element.style.top = `${node.top}px`;
+    element.style.left = `${node.left}px`;
+}
+
+/* re-position the source node */
+export const resetSource = (setSource) => {
+    const newNode = Graph.floatingNode(Graph.START_NODE_TOP, Graph.START_NODE_LEFT);
+    const element = document.getElementById('source');
+    rePosition(element, newNode);
+    setSource(prev => {
+        return newNode;
+    });
+}
+
+/* re-position the destination node */
+export const resetDestination = (setDestination) => {
+    const newNode = Graph.floatingNode(Graph.FINISH_NODE_TOP, Graph.FINISH_NODE_LEFT);
+    const element = document.getElementById('destination');
+    rePosition(element, newNode);
+    setDestination(prev => {
+        return newNode;
+    });
+}
+
 /*
   This function will be triggered when mouse is clicked on the node
   It will recieve event, reference of the node clicked (source/destination)
@@ -76,8 +103,7 @@ export const nodeStopped = (node_ref, setNode, setGrid, is_source) => {
     const colId = Math.round(node_bounds.left / Graph.GRID_BOX);
 
     const newNode = Graph.floatingNode(rowId, colId);
-    node.style.top = `${newNode.top}px`;
-    node.style.left = `${newNode.left}px`;
+    rePosition(node, newNode);
     setNode(prev => {
         return newNode;
     });
