@@ -23,7 +23,7 @@ const RecurDFS = (current, destination) => {
         }
     }
     Graph.unMarkNodeVisited(current);
-    return true;
+    return;
 }
 
 const DFS = (source, destination) => {

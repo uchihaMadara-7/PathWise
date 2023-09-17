@@ -13,7 +13,7 @@ class minHeap {
             const parentIndex = Math.floor((currentIndex - 1) / 2);
 
             /* if parent is larger, swap the current and parent */
-            if (this.heap[currentIndex] < this.heap[parentIndex]) {
+            if (this.heap[currentIndex].value < this.heap[parentIndex].value) {
                 [this.heap[currentIndex], this.heap[parentIndex]] = [this.heap[parentIndex], this.heap[currentIndex]];
                 currentIndex = parentIndex;
             }
@@ -33,12 +33,12 @@ class minHeap {
             let smallestIndex = currentIndex;
 
             /* if left child is small, mark it as smallest */
-            if (leftChildIndex < this.heap.length && this.heap[leftChildIndex] < this.heap[smallestIndex]) {
+            if (leftChildIndex < this.heap.length && this.heap[leftChildIndex].value < this.heap[smallestIndex].value) {
                 smallestIndex = leftChildIndex;
             }
 
             /* if rigt child is small, mark it as smallest */
-            if (rightChildIndex < this.heap.length && this.heap[rightChildIndex] < this.heap[smallestIndex]) {
+            if (rightChildIndex < this.heap.length && this.heap[rightChildIndex].value < this.heap[smallestIndex].value) {
                 smallestIndex = rightChildIndex;
             }
 
@@ -72,6 +72,11 @@ class minHeap {
         }
 
         return minValue;
+    }
+
+    /* check if heap is empty */
+    empty() {
+        return (this.heap.length === 0);
     }
 }
 

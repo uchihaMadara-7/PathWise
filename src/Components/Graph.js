@@ -141,6 +141,11 @@ export const isBetterPath = (current, nextNode) => {
     return false;
 }
 
+/* get the Distance of the node - possibly from some source node */
+export const getDistance = (node) => {
+    return graph[node.rowId][node.colId].distance;
+}
+
 /* update the parent of the neighbour to current */
 export const updateParent = (current, nextNode) => {
     graph[nextNode.rowId][nextNode.colId].parent_node = current;

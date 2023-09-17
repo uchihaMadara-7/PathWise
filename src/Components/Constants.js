@@ -1,5 +1,6 @@
 import BFS from '../Algorithms/BFS';
 import DFS from '../Algorithms/DFS';
+import Dijkstra from '../Algorithms/Dijkstra';
 
 /* These are direction constant for the shortest path */
 export const DIRECTION_LEFT = 0;
@@ -18,6 +19,7 @@ export const DIRECTION_DOWN_RIGHT = 11;
 /* indexes for various algorithms */
 export const BREADTH_FIRST_SEARCH = 0;
 export const DEPTH_FIRST_SEARCH = 1;
+export const DIJKSTRA = 3;
 
 /* way to dynamically have different algo callbacks and interval */
 export const pathAlgorithm = {
@@ -28,5 +30,9 @@ export const pathAlgorithm = {
     [DEPTH_FIRST_SEARCH]: {
         callback: DFS,
         interval: 1,
+    },
+    [DIJKSTRA]: {
+        callback: Dijkstra,
+        interval: 20,
     }
 }

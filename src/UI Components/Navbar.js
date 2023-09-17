@@ -22,6 +22,9 @@ const Navbar = ({ pathFunction, otherProps }) => {
                 <li className="navbar-item">
                     <button className='button' onClick={() => pathFunction(Cons.DEPTH_FIRST_SEARCH)}>Visualise DFS</button>
                 </li>
+                <li className="navbar-item">
+                    <button className='button' onClick={() => pathFunction(Cons.DIJKSTRA)}>Visualise Dijkstra</button>
+                </li>
                 <li>
                     <button className='button' onClick={() => toggleMode(obstaclesMode, setObstaclesMode)}>
                         {obstaclesMode ? 'Disable Obstacles' : 'Enable Obstacles'}
